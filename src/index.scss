@@ -1,13 +1,10 @@
 // Utilities
 @import '~bootstrap/scss/bootstrap.scss';
 @import './styles/utilities/colors';
+@import './styles/utilities/fonts';
+@import './styles/utilities/typography';
 
+// Components
 @import './styles/usertile.scss';
 @import './styles/login-header.scss';
 @import './styles/user-search';
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}

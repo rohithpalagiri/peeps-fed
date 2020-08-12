@@ -1,0 +1,30 @@
+body {
+    font-family: "SegoeUI";
+    font-size: 1rem;
+    
+}
+
+h1{
+    font-family: 'SegoeUI Light';
+    font-size: 3rem;
+}
+
+h4{
+    font-family: 'SegoeUI Semi Bold';
+    font-size: 1.5rem;
+}
+
+h5{
+    font-family: 'SegoeUI';
+    font-size: 1rem;
+}
+
+a{
+    font-family: "SegoeUI";
+    font-size: 1rem;
+    color: color("rp-steel");
+
+    &:hover{
+        color: color("blue")
+    }
+}
