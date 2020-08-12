@@ -10,7 +10,7 @@ const UserTile = ({ profile_photo, bgImg, name, title, department, id }) => {
         <img className="profile-photo" src={profile_photo} alt="profile" />
         <h4>{name}</h4>
         <h5 className="mb-4">{title}</h5>
-        <p>{department}</p>
+        <p class="department">{department}</p>
       </div>
     </div>
   )
