@@ -15,8 +15,17 @@ h4{
 }
 
 h5{
+    font-family: 'SegoeUI Semi Bold';
+    font-size: 1.125rem;
+}
+
+p{
     font-family: 'SegoeUI';
     font-size: 1rem;
+
+    &.label{
+        font-family: 'SegoeUI Semi Bold';
+    }
 }
 
 a{

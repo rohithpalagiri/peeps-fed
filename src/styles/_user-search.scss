@@ -17,6 +17,7 @@ form.user-search{
         padding: 10px 15px;
         border: 1px solid color("rp-steel");
         font-size: 0.875rem;
+        min-width: 150px;
 
         &:not(:last-of-type){
             margin-right: 20px;
