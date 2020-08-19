@@ -9,6 +9,7 @@ import {
 
 
 import './index.scss'
+import './scripts/main'
 
 ReactDOM.render(
   <Router>

@@ -4,6 +4,7 @@
 @import './styles/utilities/colors';
 @import './styles/utilities/fonts';
 @import './styles/utilities/typography';
+@import './styles/utilities/utils';
 @import './styles/utilities/overrides';
 
 // Components
@@ -11,3 +12,4 @@
 @import './styles/login-header.scss';
 @import './styles/user-search';
 @import './styles/user-profile-header';
+@import './styles/user-tab';

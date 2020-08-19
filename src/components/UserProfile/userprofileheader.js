@@ -1,13 +1,13 @@
 import React from 'react';
 import ChatIcon from '../../images/chat.svg'
 
-const UserProfileHeader = ({ loggedInUser: {bgImg, quote, quoteAuthor, profile_photo, name, title, department, location, email, phone} }) => {
+const UserProfileHeader = ({ loggedInUser: { bgImg, quote, quoteAuthor, profile_photo, first_name, last_name, title, department, location, email, phone } }) => {
     return (
         <div>
             <div className="profile-bg">
                 <img src={bgImg} alt="bg" />
             </div>
-            < div className="container position-relative">
+            <div className="container position-relative">
                 <div className="user-profile-header">
                     <div className="user-quote">
                         <p className="quote">{quote}</p>
@@ -20,7 +20,7 @@ const UserProfileHeader = ({ loggedInUser: {bgImg, quote, quoteAuthor, profile_p
                         <div className="col-md-3 d-flex align-items-end">
                             <div className="row">
                                 <div className="col-12">
-                                    <h1 className="name">{name}</h1>
+                                    <h1 className="name">{first_name} {last_name}</h1>
                                 </div>
                                 <div className="col-12">
                                     <div className="work-details">

@@ -29,10 +29,24 @@
         padding-top: 15px;
         padding-bottom: 15px;
 
+        h4{
+            color: black;
+        }
+
+        p.title{
+            color: black;
+            margin-bottom: 0.25rem;
+        }
+
         p.department{
             color: color("rp-steel");
             font-family: 'SegoeUI Semi Bold';
             text-transform: uppercase;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        p.location{
             font-size: 0.875rem;
         }
     }
@@ -46,5 +60,12 @@
                 opacity: 1;
             }
         }
+    }
+}
+
+a.user-link{
+    &:hover{
+        text-decoration: none !important;
+        color: currentColor;
     }
 }

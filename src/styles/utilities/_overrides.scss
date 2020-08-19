@@ -1,3 +1,35 @@
 .container{
     max-width: 1200px;
 }
+
+//Reset Styles
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+//Bootstrap Style Overrides
+
+.nav-tabs{
+    border-bottom: 0px;
+    .nav-link{
+        padding-bottom: 1rem;
+        font-family: 'SegoeUI Semi Bold';
+        font-size: 1.125rem;
+        &.active{
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+            border-bottom: 10px solid color("rp-red");
+        }
+        &[aria-selected="false"]{
+            font-family: 'SegoeUI';
+            color: color("rp-steel");
+            font-size: 1.125rem;
+            &:hover{
+                border: 1px solid transparent;
+            }
+        }
+    }
+}
