@@ -1,67 +1,16 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react'
+import userService from '../../services/users'
 
 import {
-    Switch, Route, Link, useRouteMatch
+    Switch, Route, useRouteMatch
 } from "react-router-dom"
 
 import Users from '../UserTile/usertile';
 import Header from '../LoginHeader/loginHeader';
 import UserSearchBox from '../UserSearch/usersearch';
-import UserProfileHeader from '../UserProfile/userprofileheader';
+import UserProfile from '../UserProfile/UserProfile'
 
 const App = () => {
-    const allUsers = [
-        {
-            name: 'Rohith Palagiri',
-            bgImg: 'https://i.imgur.com/5nRp1bi.jpg',
-            profile_photo: 'https://via.placeholder.com/150x150',
-            id: 1,
-            title: "Developer",
-            department: "Software",
-            team: 'engineering',
-            client: 'ge',
-            location: "Boston, MA",
-            phone: "6173839007",
-            email: "rpalagiri@rightpoint.com",
-            quote: "\"To invent, you need a good imagination and a pile of junk.\"",
-            quoteAuthor: 'Thomas Edison'
-        },
-        {
-            name: 'Tom Brady',
-            bgImg: 'https://i.imgur.com/5nRp1bi.jpg',
-            profile_photo: 'https://via.placeholder.com/150x150',
-            location: 'Tampa',
-            team: 'finance',
-            client: 'ge',
-            id: 2,
-            title: "Quarterback",
-            department: "Offense"
-        },
-        {
-            name: 'Rohith Palagiri',
-            bgImg: 'https://i.imgur.com/5nRp1bi.jpg',
-            profile_photo: 'https://via.placeholder.com/150x150',
-            location: 'Boston',
-            team: 'engineering',
-            client: 'Rightpoint',
-            id: 3,
-            title: "Developer",
-            department: "Software"
-        },
-        {
-            name: 'Rohith Palagiri',
-            bgImg: 'https://i.imgur.com/5nRp1bi.jpg',
-            profile_photo: 'https://via.placeholder.com/150x150',
-            location: 'Boston',
-            team: 'engineering',
-            client: 'Rightpoint',
-            id: 4,
-            title: "Developer",
-            department: "Software"
-        },
-
-    ]
 
     const loggedInUser = {
         name: 'Rohith Palagiri',
@@ -77,7 +26,19 @@ const App = () => {
         quoteAuthor: 'Thomas Edison'
     }
 
-    const [users, setUsers] = useState(allUsers)
+    const [users, setUsers] = useState([])
+    const [allUsers, setAllUsers] = useState([])
+
+    useEffect(() => {
+        userService
+            .getAll()
+            .then(initialUsers => {
+                setUsers(initialUsers)
+                setAllUsers(initialUsers)
+            })
+    }, [])
+
+    console.log('render', users.length, 'users')
 
     const match = useRouteMatch('/user/:id')
     const user = match
@@ -99,16 +60,24 @@ const App = () => {
         e.preventDefault();
         let searchTerm = e.target.value;
         let attr = e.target[e.target.selectedIndex].getAttribute('data-filter-type')
+        
+        console.log('searchterm: ', searchTerm);
+
+        console.log('attr: ', attr);
+        
+        console.log('user: ', users);
+        
+        
 
         if (searchTerm !== "all") {
             switch (attr) {
                 case 'location':
-                    setUsers(users.filter((x) => x.location.toLowerCase().includes(searchTerm.toLowerCase())));
+                    setUsers(users.filter((x) => x.city.toLowerCase().includes(searchTerm.toLowerCase())));
                     break;
                 case 'team':
                     console.log('term: ', searchTerm);
 
-                    setUsers(users.filter((x) => x.team.toLowerCase().includes(searchTerm.toLowerCase())));
+                    setUsers(users.filter((x) => x.department.toLowerCase().includes(searchTerm.toLowerCase())));
                     break;
                 case 'client':
                     setUsers(users.filter((x) => x.client.toLowerCase().includes(searchTerm.toLowerCase())));
@@ -126,10 +95,10 @@ const App = () => {
             <Header name={loggedInUser.name} profile_photo={loggedInUser.profile_photo} />
             <Switch>
                 <Route path="/user/:id">
-                    <UserProfileHeader loggedInUser={user} />
+                    <UserProfile users={users} />
                 </Route>
                 <Route path="/">
-                    <div class="container">
+                    <div className="container">
                         <UserSearchBox handleSelectChange={handleSelectChange} handleInputChange={handleInputChange} />
                         <Users users={users} />
                     </div>

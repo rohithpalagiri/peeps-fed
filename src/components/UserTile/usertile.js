@@ -24,7 +24,7 @@ const Users = ({ users }) => {
     <div className="row">
       {users.map((x) => {
         return (
-          <div className="col-md-3 col-2">
+          <div key={x.id} className="col-md-3 col-2">
             <Link className="user-link" to={`/user/${x.id}`}>
               <UserTile
                 first_name={x.first_name}
