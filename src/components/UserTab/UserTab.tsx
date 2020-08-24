@@ -3,7 +3,7 @@ import React from 'react';
 import ProfessionalTab from './ProfessionalTab'
 import PersonalTab from './PersonalTab'
 
-const UserTab = ({ users }) => {
+const UserTab: React.FC = () => {
     return (
         <div>
             <div className="container">
@@ -20,8 +20,12 @@ const UserTab = ({ users }) => {
             <div className="seperator"></div>
             <div className="container">
                 <div className="tab-content user-tab" id="myTabContent">
-                    <div className="tab-pane professional-tab fade show active" id="professional" role="tabpanel" aria-labelledby="professional-tab"><ProfessionalTab /></div>
-                    <div className="tab-pane personal-tab fade" id="personal" role="tabpanel" aria-labelledby="personal-tab"><PersonalTab /></div>
+                    <div className="tab-pane professional-tab fade show active" id="professional" role="tabpanel" aria-labelledby="professional-tab">
+                        <ProfessionalTab />
+                    </div>
+                    <div className="tab-pane personal-tab fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+                        <PersonalTab />
+                    </div>
                 </div>
             </div>
         </div>
