@@ -18,24 +18,20 @@ export interface MatchParams{
 
   export interface User {
     id?: number;
-    first_name?: string;
-    last_name?: string;
+    first_name: string;
+    last_name: string;
     email?: string;
     bgImg?: string;
     profile_photo?: string;
     title?: string;
     department?: string;
+    client?: string;
     city?: string;
     state?: string;
     phone?: string;
     quote?: string;
     quoteAuthor?: string;
 }
-
-interface Users{
-    usersArray: User[]
-}
-
 
 const App: React.FC<MatchParams> = () => {
 
@@ -53,8 +49,8 @@ const App: React.FC<MatchParams> = () => {
         quoteAuthor: 'Thomas Edison'
     }
 
-    const [users, setUsers] = useState<Users>({usersArray: []})
-    const [allUsers, setAllUsers] = useState<Users>({usersArray: []})
+    const [users, setUsers] = useState<User[]>([])
+    const [allUsers, setAllUsers] = useState<User[]>([])
 
     useEffect(() => {
         userService
@@ -71,8 +67,8 @@ const App: React.FC<MatchParams> = () => {
         e.preventDefault();
         let searchTerm = e.target.value;
 
-        if (searchTerm) {
-            setUsers(users.filter((x) => x.name.toLowerCase().includes(searchTerm.toLowerCase())))
+        if (searchTerm && users) {
+            setUsers(users.filter((x) => x.first_name.toLowerCase().includes(searchTerm.toLowerCase())))
         } else {
             setUsers(allUsers)
         }
@@ -91,18 +87,20 @@ const App: React.FC<MatchParams> = () => {
         
         
 
-        if (searchTerm !== "all") {
+        if (searchTerm !== "all" && users) {
             switch (attr) {
                 case 'location':
-                    setUsers(users.filter((x) => x.city.toLowerCase().includes(searchTerm.toLowerCase())));
+                    setUsers(users.filter((x) => 
+                        (x.city || '').toLowerCase().includes(searchTerm.toLowerCase())
+                    ));
                     break;
                 case 'team':
                     console.log('term: ', searchTerm);
 
-                    setUsers(users.filter((x) => x.department.toLowerCase().includes(searchTerm.toLowerCase())));
+                    setUsers(users.filter((x) => (x.department || '').toLowerCase().includes(searchTerm.toLowerCase())));
                     break;
                 case 'client':
-                    setUsers(users.filter((x) => x.client.toLowerCase().includes(searchTerm.toLowerCase())));
+                    setUsers(users.filter((x) => (x.client || '').toLowerCase().includes(searchTerm.toLowerCase())));
                     break;
                 default:
                     setUsers(allUsers)
