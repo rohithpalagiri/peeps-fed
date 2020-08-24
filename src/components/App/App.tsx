@@ -5,12 +5,39 @@ import {
     Switch, Route, useRouteMatch
 } from "react-router-dom"
 
+// import User from '../UserProfile/UserProfile'
+
 import Users from '../UserTile/usertile';
 import Header from '../LoginHeader/loginHeader';
 import UserSearchBox from '../UserSearch/usersearch';
 import UserProfile from '../UserProfile/UserProfile'
 
-const App = () => {
+export interface MatchParams{
+    id?: string;
+  }  
+
+  export interface User {
+    id?: number;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+    bgImg?: string;
+    profile_photo?: string;
+    title?: string;
+    department?: string;
+    city?: string;
+    state?: string;
+    phone?: string;
+    quote?: string;
+    quoteAuthor?: string;
+}
+
+interface Users{
+    usersArray: User[]
+}
+
+
+const App: React.FC<MatchParams> = () => {
 
     const loggedInUser = {
         name: 'Rohith Palagiri',
@@ -26,8 +53,8 @@ const App = () => {
         quoteAuthor: 'Thomas Edison'
     }
 
-    const [users, setUsers] = useState([])
-    const [allUsers, setAllUsers] = useState([])
+    const [users, setUsers] = useState<Users>({usersArray: []})
+    const [allUsers, setAllUsers] = useState<Users>({usersArray: []})
 
     useEffect(() => {
         userService
@@ -38,12 +65,7 @@ const App = () => {
             })
     }, [])
 
-    console.log('render', users.length, 'users')
-
-    const match = useRouteMatch('/user/:id')
-    const user = match
-        ? users.find(user => user.id === Number(match.params.id))
-        : null
+    const match = useRouteMatch<MatchParams>('/user/:id')
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -95,7 +117,7 @@ const App = () => {
             <Header name={loggedInUser.name} profile_photo={loggedInUser.profile_photo} />
             <Switch>
                 <Route path="/user/:id">
-                    <UserProfile users={users} />
+                    <UserProfile match={match} users={users} />
                 </Route>
                 <Route path="/">
                     <div className="container">

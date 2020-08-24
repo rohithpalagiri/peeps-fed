@@ -1,6 +1,11 @@
 import React from 'react';
 
-const Header = ({ profile_photo, name }) => {
+interface Props {
+  profile_photo: string;
+  name: string;
+}
+
+const Header: React.FC<Props> = ({ profile_photo, name }) => {
   return (
     <div className="login-header">
       <div className="container">

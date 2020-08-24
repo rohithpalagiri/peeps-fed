@@ -1,7 +1,9 @@
 import React from 'react';
-import ChatIcon from '../../images/chat.svg'
+import { User } from '../App/App'
+const ChatIcon = require('../../images/chat.svg') as string;
 
-const UserProfileHeader = ({ loggedInUser: { bgImg, quote, quoteAuthor, profile_photo, first_name, last_name, title, department, location, email, phone } }) => {
+
+const UserProfileHeader: React.FC<User> = ({ bgImg, quote, quoteAuthor, profile_photo, first_name, last_name, title, department, city, state, email, phone }) => {
     return (
         <div>
             <div className="profile-bg">
@@ -28,7 +30,7 @@ const UserProfileHeader = ({ loggedInUser: { bgImg, quote, quoteAuthor, profile_
                                     </div>
                                 </div>
                                 <div className="col-12">
-                                    <p className="location mb-0">{location}</p>
+                                    <p className="location mb-0">{city}, {state}</p>
                                 </div>
                             </div>
                         </div>
