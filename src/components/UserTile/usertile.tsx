@@ -1,8 +1,14 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 
 import { Link } from "react-router-dom"
 
-const UserTile = ({ profile_photo, bgImg, first_name, last_name, title, department, id, city, state }) => {
+const ChatIcon = require('../../images/chat.svg') as string;
+const VideoIcon = require('../../images/video-chat.svg') as string;
+const PhoneIcon = require('../../images/phone.svg') as string;
+const MailIcon = require('../../images/mail.svg') as string;
+
+const UserTile = ({ profile_photo, bgImg, first_name, last_name, title, department, id, city, state, handleClick }) => {
   return (
     <div key={id} className="usertile">
       <div className="profile-bg">
@@ -15,11 +21,23 @@ const UserTile = ({ profile_photo, bgImg, first_name, last_name, title, departme
         <p className="department">{department}</p>
         <p className="location">{city}, {state}</p>
       </div>
+      <div className="contact-bar">
+        <a onClick={handleClick} href="#"><img src={ChatIcon} /></a>
+        <a onClick={handleClick} href="#"><img src={MailIcon} /></a>
+        <a onClick={handleClick} href="#"><img src={VideoIcon} /></a>
+        <a onClick={handleClick} href="#"><img src={PhoneIcon} /></a>
+      </div>
     </div>
   )
 }
 
 const Users = ({ users }) => {
+
+  const handleContactBarClick= (e) => {
+    e.preventDefault();
+    console.log("Handle Microsoft Related Actions with this click")
+  }
+
   return (
     <div className="row">
       {users.map((x) => {
@@ -34,7 +52,10 @@ const Users = ({ users }) => {
                 department={x.department}
                 bgImg={x.bgImg}
                 city={x.city}
-                state={x.state} />
+                state={x.state}
+                handleClick={handleContactBarClick}
+                 />
+                
             </Link>
           </div>
         )

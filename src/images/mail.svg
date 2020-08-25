@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="12px" viewBox="0 0 18 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Link/Link-icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Molecules/RP_Employee_Card-Hover" transform="translate(-77.000000, -388.000000)">
+            <g id="Atoms/Link/Link-icon" transform="translate(76.000000, 383.000000)">
+                <g id="Atoms/icons/envelope" transform="translate(0.000000, 1.000000)" fill="#E4002B" fill-rule="evenodd">
+                    <path d="M1.23325,5.25175 C1.6,4.5115 2.36425,4 3.25,4 L16.75,4 C17.63575,4 18.4,4.5115 18.76675,5.25175 C18.916,5.55325 19,5.893 19,6.25 L19,13.75 C19,14.99275 17.99275,16 16.75,16 L3.25,16 C2.00725,16 1,14.99275 1,13.75 L1,6.25 C1,5.893 1.084,5.55325 1.23325,5.25175 Z M3.316,5.5 L9.64075,8.95 C9.865,9.07225 10.135,9.07225 10.35925,8.95 L16.684,5.5 L3.316,5.5 Z M17.5,6.76375 L11.07775,10.26625 C10.40575,10.633 9.59425,10.633 8.92225,10.26625 L2.5,6.76375 L2.5,13.75 C2.5,14.164 2.836,14.5 3.25,14.5 L16.75,14.5 C17.164,14.5 17.5,14.164 17.5,13.75 L17.5,6.76375 L17.5,6.76375 Z" id="Fill-960"></path>
+                </g>
+                <text id="Link" font-family="Helvetica" font-size="16" font-weight="normal"></text>
+            </g>
+        </g>
+    </g>
+</svg>

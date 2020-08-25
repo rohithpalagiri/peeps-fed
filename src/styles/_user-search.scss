@@ -11,6 +11,10 @@ form.user-search{
         background-position: 5px;
         border: 1px solid color("rp-steel");
         font-size: 0.875rem;
+
+        @include media-breakpoint-up(lg){
+            width: 33%;
+        }
     }
 
     select{

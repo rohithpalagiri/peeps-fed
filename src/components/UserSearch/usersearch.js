@@ -3,7 +3,7 @@ import React from 'react';
 const UserSearchBox = ({ handleSelectChange, handleInputChange }) => {
     return (
         <form className="user-search">
-            <input className="user-input" placeholder="Search for Peeps" name="userSearch" onChange={handleInputChange} />
+            <input className="user-input" placeholder="Search for Peeps by name" name="userSearch" onChange={handleInputChange} />
 
             <div>
                 <select defaultValue="all" onChange={handleSelectChange}>

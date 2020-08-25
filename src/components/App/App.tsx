@@ -5,18 +5,16 @@ import {
     Switch, Route, useRouteMatch
 } from "react-router-dom"
 
-// import User from '../UserProfile/UserProfile'
-
 import Users from '../UserTile/usertile';
 import Header from '../LoginHeader/loginHeader';
 import UserSearchBox from '../UserSearch/usersearch';
 import UserProfile from '../UserProfile/UserProfile'
 
-export interface MatchParams{
+export interface MatchParams {
     id?: string;
-  }  
+}
 
-  export interface User {
+export interface User {
     id?: number;
     first_name: string;
     last_name: string;
@@ -68,7 +66,9 @@ const App: React.FC<MatchParams> = () => {
         let searchTerm = e.target.value;
 
         if (searchTerm && users) {
-            setUsers(users.filter((x) => x.first_name.toLowerCase().includes(searchTerm.toLowerCase())))
+            setUsers(users.filter((x) =>
+                x.first_name.toLowerCase().includes(searchTerm.toLowerCase()) || x.last_name.toLowerCase().includes(searchTerm.toLowerCase())
+            ))
         } else {
             setUsers(allUsers)
         }
@@ -78,19 +78,19 @@ const App: React.FC<MatchParams> = () => {
         e.preventDefault();
         let searchTerm = e.target.value;
         let attr = e.target[e.target.selectedIndex].getAttribute('data-filter-type')
-        
+
         console.log('searchterm: ', searchTerm);
 
         console.log('attr: ', attr);
-        
+
         console.log('user: ', users);
-        
-        
+
+
 
         if (searchTerm !== "all" && users) {
             switch (attr) {
                 case 'location':
-                    setUsers(users.filter((x) => 
+                    setUsers(users.filter((x) =>
                         (x.city || '').toLowerCase().includes(searchTerm.toLowerCase())
                     ));
                     break;
