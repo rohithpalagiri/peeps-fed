@@ -8,6 +8,7 @@ Clone the repo to a folder and run:
 
 ```bash
 npm install
+npm start
 ```
 
 You will also need to run the backend counterpart of this project to receive data. For the go to the [peeps-backend project](https://github.com/rohithpalagiri/peeps-backend) and follow the instructions in the README
