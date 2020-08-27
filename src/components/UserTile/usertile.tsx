@@ -22,10 +22,10 @@ const UserTile = ({ profile_photo, bgImg, first_name, last_name, title, departme
         <p className="location">{city}, {state}</p>
       </div>
       <div className="contact-bar">
-        <a onClick={handleClick} href="#"><img src={ChatIcon} /></a>
-        <a onClick={handleClick} href="#"><img src={MailIcon} /></a>
-        <a onClick={handleClick} href="#"><img src={VideoIcon} /></a>
-        <a onClick={handleClick} href="#"><img src={PhoneIcon} /></a>
+        <div onClick={handleClick}><img src={ChatIcon} /></div>
+        <div onClick={handleClick}><img src={MailIcon} /></div>
+        <div onClick={handleClick}><img src={VideoIcon} /></div>
+        <div onClick={handleClick}><img src={PhoneIcon} /></div>
       </div>
     </div>
   )
