@@ -49,6 +49,9 @@ const App: React.FC<MatchParams> = () => {
 
     const [users, setUsers] = useState<User[]>([])
     const [allUsers, setAllUsers] = useState<User[]>([])
+    const [locationFilter, setLocationFilter] = useState('all')
+    const [clientFilter, setClientFilter] = useState('all')
+    const [departmentFilter, setDepartmentFilter] = useState('all')
 
     useEffect(() => {
         userService
@@ -58,6 +61,14 @@ const App: React.FC<MatchParams> = () => {
                 setAllUsers(initialUsers)
             })
     }, [])
+
+    useEffect(() => {
+        let filteredUsers = allUsers;
+        if (locationFilter !== 'all') filteredUsers = filteredUsers.filter(x => (x.city || '').toLowerCase().includes(locationFilter.toLowerCase()))
+        if (clientFilter !== 'all') filteredUsers = filteredUsers.filter(x => (x.client || '').toLowerCase().includes(clientFilter.toLowerCase()))
+        if (departmentFilter !== 'all') filteredUsers = filteredUsers.filter(x => (x.department || '').toLowerCase().includes(departmentFilter.toLowerCase()))
+        setUsers(filteredUsers);
+    }, [locationFilter, clientFilter, departmentFilter, setUsers]);
 
     const match = useRouteMatch<MatchParams>('/user/:id')
 
@@ -74,39 +85,20 @@ const App: React.FC<MatchParams> = () => {
         }
     }
 
-    const handleSelectChange = (e) => {
+    const handleFilterChange = (type) => (e) => {
         e.preventDefault();
         let searchTerm = e.target.value;
-        let attr = e.target[e.target.selectedIndex].getAttribute('data-filter-type')
 
-        console.log('searchterm: ', searchTerm);
-
-        console.log('attr: ', attr);
-
-        console.log('user: ', users);
-
-
-
-        if (searchTerm !== "all" && users) {
-            switch (attr) {
-                case 'location':
-                    setUsers(users.filter((x) =>
-                        (x.city || '').toLowerCase().includes(searchTerm.toLowerCase())
-                    ));
-                    break;
-                case 'team':
-                    console.log('term: ', searchTerm);
-
-                    setUsers(users.filter((x) => (x.department || '').toLowerCase().includes(searchTerm.toLowerCase())));
-                    break;
-                case 'client':
-                    setUsers(users.filter((x) => (x.client || '').toLowerCase().includes(searchTerm.toLowerCase())));
-                    break;
-                default:
-                    setUsers(allUsers)
-            }
-        } else {
-            setUsers(allUsers)
+        switch (type) {
+            case 'location':
+                setLocationFilter(searchTerm)
+                break;
+            case 'department':
+                setDepartmentFilter(searchTerm)
+                break;
+            case 'client':
+                setClientFilter(searchTerm)
+                break;
         }
     }
 
@@ -119,7 +111,16 @@ const App: React.FC<MatchParams> = () => {
                 </Route>
                 <Route path="/">
                     <div className="container">
-                        <UserSearchBox handleSelectChange={handleSelectChange} handleInputChange={handleInputChange} />
+                        <UserSearchBox
+                            handleFilterChange={handleFilterChange}
+                            handleInputChange={handleInputChange}
+                            locations={[...new Set(allUsers.map(user => user.city))]}
+                            departments={[...new Set(allUsers.map(user => user.department))]}
+                            clients={[...new Set(allUsers.map(user => user.client))]}
+                            locationValue={locationFilter}
+                            clientValue={clientFilter}
+                            departmentValue={departmentFilter}
+                        />
                         <Users users={users} />
                     </div>
                 </Route>
