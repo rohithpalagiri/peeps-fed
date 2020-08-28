@@ -7,12 +7,13 @@ const ChatIcon = require('../../images/chat.svg') as string;
 const VideoIcon = require('../../images/video-chat.svg') as string;
 const PhoneIcon = require('../../images/phone.svg') as string;
 const MailIcon = require('../../images/mail.svg') as string;
+const DefaultBG = require('../../images/default_bg.png') as string
 
 const UserTile = ({ profile_photo, bgImg, first_name, last_name, title, department, id, city, state, handleClick }) => {
   return (
     <div key={id} className="usertile">
       <div className="profile-bg">
-        <img src={bgImg} alt="bg" />
+        <img src={(bgImg || DefaultBG)} alt="bg" />
       </div>
       <div className="user-content">
         <img className="profile-photo" src={profile_photo} alt="profile" />

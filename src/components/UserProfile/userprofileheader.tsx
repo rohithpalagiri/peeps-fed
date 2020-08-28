@@ -1,19 +1,33 @@
 import React from 'react';
 import { User } from '../App/App'
+import QuoteModal from '../ProfileEdits/QuoteModal'
 const ChatIcon = require('../../images/chat.svg') as string;
+const DefaultBG = require('../../images/default_bg.png')
 
 
 const UserProfileHeader: React.FC<User> = ({ bgImg, quote, quoteAuthor, profile_photo, first_name, last_name, title, department, city, state, email, phone }) => {
+
+    const handleQuoteChange = () =>{ 
+
+    }
+
+
     return (
         <div>
+            <QuoteModal />
             <div className="profile-bg">
-                <img src={bgImg} alt="bg" />
+                <img src={(bgImg || DefaultBG)} alt="bg" />
             </div>
             <div className="container position-relative">
                 <div className="user-profile-header">
                     <div className="user-quote">
-                        <p className="quote">{quote}</p>
-                        <p className="quote-author mb-0">-{quoteAuthor}</p>
+                        {(quote && quoteAuthor)
+                            ? <React.Fragment>
+                                <p className="quote">{quote}</p>
+                                <p className="quote-author mb-0">-{quoteAuthor}</p>
+                            </React.Fragment>
+                        }
+
                     </div>
                     <div className="row header-container">
                         <div className="col-md-3 col-12 d-flex justify-content-center">

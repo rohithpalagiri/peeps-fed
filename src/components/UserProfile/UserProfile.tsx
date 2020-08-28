@@ -34,6 +34,8 @@ const UserProfile: React.FC<Props> = ({ users, match }) => {
                     profile_photo={user.profile_photo}
                     state={user.state}
                     title={user.title}
+                    quote={user.quote}
+                    quoteAuthor={user.quoteAuthor}
                 />
                 <UserTab />
             </div>
