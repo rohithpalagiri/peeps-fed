@@ -1,9 +1,9 @@
 import React from 'react';
 
-const UserSearchBox = ({ handleFilterChange, handleInputChange, locations, departments, clients, locationValue, clientValue, departmentValue }) => {
+const UserSearchBox = ({ handleFilterChange, handleInputChange, locations, departments, clients, locationValue, clientValue, departmentValue, userInput }) => {
     return (
         <form className="user-search">
-            <input className="user-input" placeholder="Search for Peeps by name" name="userSearch" onChange={handleInputChange} />
+            <input className="user-input" placeholder="Search for Peeps by name" name="userSearch" value={userInput} onChange={handleInputChange} />
 
             <div>
                 <select id="locationSelect"  value={locationValue} onChange={handleFilterChange("location")}>

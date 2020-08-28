@@ -55,7 +55,6 @@ const Users = ({ users }) => {
                 state={x.state}
                 handleClick={handleContactBarClick}
                  />
-                
             </Link>
           </div>
         )

@@ -52,13 +52,15 @@ const App: React.FC<MatchParams> = () => {
     const [locationFilter, setLocationFilter] = useState('all')
     const [clientFilter, setClientFilter] = useState('all')
     const [departmentFilter, setDepartmentFilter] = useState('all')
+    const [userInput, setUserInput] = useState('')
 
     useEffect(() => {
         userService
             .getAll()
             .then(initialUsers => {
-                setUsers(initialUsers)
-                setAllUsers(initialUsers)
+                const sortedUsers = [...initialUsers.sort((a, b) => a.last_name.toUpperCase().localeCompare(b.last_name.toUpperCase()))]
+                setUsers(sortedUsers)
+                setAllUsers(sortedUsers)
             })
     }, [])
 
@@ -67,22 +69,21 @@ const App: React.FC<MatchParams> = () => {
         if (locationFilter !== 'all') filteredUsers = filteredUsers.filter(x => (x.city || '').toLowerCase().includes(locationFilter.toLowerCase()))
         if (clientFilter !== 'all') filteredUsers = filteredUsers.filter(x => (x.client || '').toLowerCase().includes(clientFilter.toLowerCase()))
         if (departmentFilter !== 'all') filteredUsers = filteredUsers.filter(x => (x.department || '').toLowerCase().includes(departmentFilter.toLowerCase()))
+
+        if (userInput) {
+            filteredUsers = filteredUsers.filter((x) =>
+                x.first_name.toLowerCase().includes(userInput.toLowerCase()) || x.last_name.toLowerCase().includes(userInput.toLowerCase())
+            )
+        }
+
         setUsers(filteredUsers);
-    }, [locationFilter, clientFilter, departmentFilter, setUsers]);
+    }, [locationFilter, clientFilter, departmentFilter, setUsers, userInput, allUsers]);
 
     const match = useRouteMatch<MatchParams>('/user/:id')
 
     const handleInputChange = (e) => {
         e.preventDefault();
-        let searchTerm = e.target.value;
-
-        if (searchTerm && users) {
-            setUsers(users.filter((x) =>
-                x.first_name.toLowerCase().includes(searchTerm.toLowerCase()) || x.last_name.toLowerCase().includes(searchTerm.toLowerCase())
-            ))
-        } else {
-            setUsers(allUsers)
-        }
+        setUserInput(e.target.value)
     }
 
     const handleFilterChange = (type) => (e) => {
@@ -120,6 +121,7 @@ const App: React.FC<MatchParams> = () => {
                             locationValue={locationFilter}
                             clientValue={clientFilter}
                             departmentValue={departmentFilter}
+                            userInput={userInput}
                         />
                         <Users users={users} />
                     </div>
