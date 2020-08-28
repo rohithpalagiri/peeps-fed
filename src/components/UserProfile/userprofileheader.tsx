@@ -26,6 +26,7 @@ const UserProfileHeader: React.FC<User> = ({ bgImg, quote, quoteAuthor, profile_
                                 <p className="quote">{quote}</p>
                                 <p className="quote-author mb-0">-{quoteAuthor}</p>
                             </React.Fragment>
+                            : <React.Fragment><p className="quote">"Add your favorite quote here"</p></React.Fragment>
                         }
 
                     </div>
