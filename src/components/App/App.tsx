@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import userService from '../../services/users'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
     Switch, Route, useRouteMatch
 } from "react-router-dom"
 
+
 import Users from '../UserTile/usertile';
 import Header from '../LoginHeader/loginHeader';
 import UserSearchBox from '../UserSearch/usersearch';
 import UserProfile from '../UserProfile/UserProfile'
+import { initializeUsers } from '../../reducers/userReducer';
 
 export interface MatchParams {
     id?: string;
@@ -33,6 +35,10 @@ export interface User {
 
 const App: React.FC<MatchParams> = () => {
 
+    const dispatch = useDispatch()
+
+    const users = useSelector(state => state.users)
+
     const loggedInUser = {
         name: 'Rohith Palagiri',
         bgImg: 'https://i.imgur.com/5nRp1bi.jpg',
@@ -46,62 +52,13 @@ const App: React.FC<MatchParams> = () => {
         quote: "\"To invent, you need a good imagination and a pile of junk.\"",
         quoteAuthor: 'Thomas Edison'
     }
-
-    const [users, setUsers] = useState<User[]>([])
-    const [allUsers, setAllUsers] = useState<User[]>([])
-    const [locationFilter, setLocationFilter] = useState('all')
-    const [clientFilter, setClientFilter] = useState('all')
-    const [departmentFilter, setDepartmentFilter] = useState('all')
-    const [userInput, setUserInput] = useState('')
+    
 
     useEffect(() => {
-        userService
-            .getAll()
-            .then(initialUsers => {
-                const sortedUsers = [...initialUsers.sort((a, b) => a.last_name.toUpperCase().localeCompare(b.last_name.toUpperCase()))]
-                setUsers(sortedUsers)
-                setAllUsers(sortedUsers)
-            })
-    }, [])
-
-    useEffect(() => {
-        let filteredUsers = allUsers;
-        if (locationFilter !== 'all') filteredUsers = filteredUsers.filter(x => (x.city || '').toLowerCase().includes(locationFilter.toLowerCase()))
-        if (clientFilter !== 'all') filteredUsers = filteredUsers.filter(x => (x.client || '').toLowerCase().includes(clientFilter.toLowerCase()))
-        if (departmentFilter !== 'all') filteredUsers = filteredUsers.filter(x => (x.department || '').toLowerCase().includes(departmentFilter.toLowerCase()))
-
-        if (userInput) {
-            filteredUsers = filteredUsers.filter((x) =>
-                x.first_name.toLowerCase().includes(userInput.toLowerCase()) || x.last_name.toLowerCase().includes(userInput.toLowerCase())
-            )
-        }
-
-        setUsers(filteredUsers);
-    }, [locationFilter, clientFilter, departmentFilter, setUsers, userInput, allUsers]);
+        dispatch(initializeUsers())
+    }, [dispatch])
 
     const match = useRouteMatch<MatchParams>('/user/:id')
-
-    const handleInputChange = (e) => {
-        e.preventDefault();
-        setUserInput(e.target.value)
-    }
-
-    const handleFilterChange = (type) => (e) => {
-        e.preventDefault();
-        let searchTerm = e.target.value;
-
-        switch (type) {
-            case 'location':
-                setLocationFilter(searchTerm)
-                break;
-            case 'department':
-                setDepartmentFilter(searchTerm)
-                break;
-            case 'client':
-                setClientFilter(searchTerm)
-                break;
-        }
-    }
 
     return (
         <div>
@@ -113,17 +70,11 @@ const App: React.FC<MatchParams> = () => {
                 <Route path="/">
                     <div className="container">
                         <UserSearchBox
-                            handleFilterChange={handleFilterChange}
-                            handleInputChange={handleInputChange}
-                            locations={[...new Set(allUsers.map(user => user.city))]}
-                            departments={[...new Set(allUsers.map(user => user.department))]}
-                            clients={[...new Set(allUsers.map(user => user.client))]}
-                            locationValue={locationFilter}
-                            clientValue={clientFilter}
-                            departmentValue={departmentFilter}
-                            userInput={userInput}
+                            locations={[...new Set(users.map(user => user.city))]}
+                            departments={[...new Set(users.map(user => user.department))]}
+                            clients={[...new Set(users.map(user => user.client))]}
                         />
-                        <Users users={users} />
+                        <Users />
                     </div>
                 </Route>
             </Switch>

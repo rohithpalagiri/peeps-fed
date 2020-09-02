@@ -17,8 +17,6 @@ const UserProfile: React.FC<Props> = ({ users, match }) => {
         ? users.find(user => user.id === Number(match.params.id))
         : null
 
-    console.log("user: ", users);
-
     if (user) {
         return (
             <div>

@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux'
 
 import { Link } from "react-router-dom"
 
@@ -23,21 +24,41 @@ const UserTile = ({ profile_photo, bgImg, first_name, last_name, title, departme
         <p className="location">{city}, {state}</p>
       </div>
       <div className="contact-bar">
-        <div onClick={handleClick}><img src={ChatIcon} /></div>
-        <div onClick={handleClick}><img src={MailIcon} /></div>
-        <div onClick={handleClick}><img src={VideoIcon} /></div>
-        <div onClick={handleClick}><img src={PhoneIcon} /></div>
+        <div onClick={handleClick}><img src={ChatIcon} alt="chat"/></div>
+        <div onClick={handleClick}><img src={MailIcon} alt="mail"/></div>
+        <div onClick={handleClick}><img src={VideoIcon} alt="video"/></div>
+        <div onClick={handleClick}><img src={PhoneIcon} alt="phone"/></div>
       </div>
     </div>
   )
 }
 
-const Users = ({ users }) => {
+const Users = () => {
 
-  const handleContactBarClick= (e) => {
+  const handleContactBarClick = (e) => {
     e.preventDefault();
     console.log("Handle Microsoft Related Actions with this click")
   }
+
+  const filter = useSelector(state => state.filter)
+
+  const users = useSelector(({ filter, users }) => {
+    if (filter.locationFilter !== 'all') users = users.filter(x => (x.city || '').toLowerCase().includes(filter.locationFilter.toLowerCase()))
+    if (filter.clientFilter !== 'all') users = users.filter(x => (x.client || '').toLowerCase().includes(filter.clientFilter.toLowerCase()))
+    if (filter.departmentFilter !== 'all') users = users.filter(x => (x.department || '').toLowerCase().includes(filter.departmentFilter.toLowerCase()))
+
+    if (filter.userInput) {
+      users = users.filter((x) =>
+        x.first_name.toLowerCase().includes(filter.userInput.toLowerCase()) || x.last_name.toLowerCase().includes(filter.userInput.toLowerCase())
+      )
+    }
+    return users
+  })
+
+  useEffect(() => {
+
+
+  }, [filter]);
 
   return (
     <div className="row">
@@ -55,7 +76,7 @@ const Users = ({ users }) => {
                 city={x.city}
                 state={x.state}
                 handleClick={handleContactBarClick}
-                 />
+              />
             </Link>
           </div>
         )
